@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<lcprojit lcprojversion="150" projname="zqzb" appname="zqzb" is_acc_mode="0" pkgname="com.czx">
+    <lua entry="zqzb.lua">
+        <file name="battle.lua"/>
+        <file name="bosshunt.lua"/>
+        <file name="config.lua"/>
+        <file name="redpacket.lua"/>
+        <file name="bossfresh.lua"/>
+    </lua>
+    <rc entry="zqzb.rc"/>
+    <ui entry="zqzb.ui"/>
+    <luaej entry="">
+        <file name=""/>
+    </luaej>
+</lcprojit>
