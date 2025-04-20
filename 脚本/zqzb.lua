@@ -133,6 +133,67 @@ function checkPlayer()
 	end
 end
 
+-- 在地图切换前检测是否还有Boss
+function checkForRemainingBoss(map)
+	print("检测 " .. map.name .. " 是否还有未击杀的Boss...")
+	
+	-- 最大检测次数，防止无限循环
+	local maxAttempts = 3
+	local attempts = 0
+	
+	-- 引入BossHunt模块
+	local BossHunt = require("bosshunt")
+	
+	while attempts < maxAttempts do
+		attempts = attempts + 1
+		print("第 " .. attempts .. " 次检测Boss...")
+		
+		-- 尝试寻找并击杀Boss
+		local bossFound = BossHunt.huntBoss()
+		
+		if bossFound then
+			print("发现Boss并已尝试击杀，将继续在当前地图打怪")
+			-- 继续执行一轮打怪
+			Battle.fightInMap(map.name, map, Config.FIGHT_TIME)
+		else
+			print("未发现Boss，可以安全切换到下一个地图")
+			return false
+		end
+		
+		-- 检测玩家
+		if Config.PLAYER_DETECTION_ENABLED then
+			if Battle.checkForPlayers() then
+				print("检测到玩家，终止Boss检测并准备切换地图")
+				Battle.returnToCity()
+				return false
+			end
+		end
+	end
+	
+	print("达到最大检测次数 " .. maxAttempts .. "，将切换到下一个地图")
+	return false
+end
+
+-- 检测并关闭任何弹窗（简化版）
+function checkAndClosePopup()
+	print("检测是否有弹窗...")
+	local ret, x, y = findPic(0, 0, 0, 0, "关闭.png", "101010", 0, 0.7)
+	print("弹窗检测结果:", ret, x, y)
+	
+	if ret ~= -1 then
+		print("检测到弹窗，位置: x=" .. x .. ", y=" .. y)
+		
+		-- 点击关闭按钮
+		tap(x, y)
+		print("已点击关闭按钮")
+		sleep(500) -- 给关闭动画一些时间
+		return true
+	else
+		print("未检测到弹窗")
+		return false
+	end
+end
+
 function startGame()
 	-- 进入游戏主循环
 	while true do
@@ -154,7 +215,15 @@ function startGame()
 		checkPlayer()
 		
 		-- 继续正常的打怪流程
-		Battle.fightInMap(map.name , map , Config.FIGHT_TIME)
+		Battle.fightInMap(map.name, map, Config.FIGHT_TIME)
+		
+		-- 在切换地图前检测是否还有Boss
+		if Config.BOSS_HUNT_ENABLED then
+			checkForRemainingBoss(map)
+		end
+		
+		-- 切换地图前再次检测并关闭弹窗
+		checkAndClosePopup()
 		
 		-- 切换到下一个地图
 		current_map = current_map % #Config.maps + 1
@@ -165,7 +234,7 @@ function startGame()
 			RedPacket.collect()
 			lastRedPacketTime = currentTime
 		else
-			print("下次领红包时间" , currentTime - lastRedPacketTime)
+			print("下次领红包时间", currentTime - lastRedPacketTime)
 		end
 		
 		-- 暂停一下，防止操作过快
@@ -173,10 +242,12 @@ function startGame()
 		
 		::continue:: -- 这是一个循环标签，用于goto语句
 	end
-	
 end
 
 function main()
+
+	-- 检测并关闭任何弹窗
+	checkAndClosePopup()
 	
 	-- 执行模式检查
 	checkAndSwitchToPlayerListMode()
@@ -187,4 +258,3 @@ function main()
 end
 
 main()
-
