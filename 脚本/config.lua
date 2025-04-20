@@ -10,6 +10,7 @@ Config = {
     BOSS_FIGHT_TIME = 5 * 60 * 1000,  -- Boss战斗时间（毫秒）
     
     -- 玩家检测相关
+	PLAYER_DETECTION_SWICH_PLAYER_REGION = {0, 140, 374, 407}, -- 检查是否切换玩家列表
     PLAYER_DETECTION_ENABLED = true,  -- 是否启用玩家检测功能
     PLAYER_DETECTION_REGION = {49, 138, 346, 411},  -- 玩家检测区域
     PLAYER_DETECTION_INTERVAL = 5 * 1000,  -- 玩家检测间隔（毫秒）

@@ -174,17 +174,18 @@ end
 
 -- 检测区域内是否有玩家
 function Battle.checkForPlayers()
-    print("检测区域内是否有玩家...")
+    -- print("检测区域内是否有玩家...")
     
     local region = Config.PLAYER_DETECTION_REGION
     local x, y = -1, -1
     local ret, x, y = findPic(region[1], region[2], region[3], region[4], "player.bmp", "101010", 0, 0.9)
     
     if x ~= -1 and y ~= -1 then
-        print("检测到玩家！坐标: " .. x .. ", " .. y)
+		print("检测到玩家！坐标: " .. x .. ", " .. y)
+        toast("检测到玩家！坐标: " .. x .. ", " .. y)
         return true
     else
-        print("未检测到玩家")
+        toast("未检测到玩家")
         return false
     end
 end

@@ -92,9 +92,10 @@ updateConfigFromUI(ret)
 -- 检查并切换到玩家列表模式
 function checkAndSwitchToPlayerListMode()
 	print("检查是否已切换到玩家列表模式...")
+	local region = Config.PLAYER_DETECTION_SWICH_PLAYER_REGION
 	local index = - 1
 	local ret = nil
-	index , ret = findPicFast(0 , 0 , 0 , 0 , "人物.png" , "000000" , 0 , 0.9)
+	index , ret = findPicFast(region[1], region[2], region[3], region[4], "人物.png" , "000000" , 0 , 0.9)
 	print("检测结果:" , index , ret)
 	
 	if index == - 1 then
@@ -104,7 +105,7 @@ function checkAndSwitchToPlayerListMode()
 		sleep(1000) -- 等待切换完成
 		
 		-- 再次检查是否成功切换
-		index , ret = findPicFast(0 , 0 , 0 , 0 , "人物.png" , "000000" , 0 , 0.9)
+		index , ret = findPicFast(region[1], region[2], region[3], region[4], "人物.png" , "000000" , 0 , 0.9)
 		if index ~= - 1 then
 			print("成功切换到玩家列表模式")
 		else
