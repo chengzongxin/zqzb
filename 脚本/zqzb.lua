@@ -197,8 +197,6 @@ end
 function startGame()
 	-- 进入游戏主循环
 	while true do
-		checkPlayer()
-		
 		-- 前往当前地图并打怪
 		local map = Battle.gotoMap(current_map)
 		if not map then

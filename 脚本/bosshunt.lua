@@ -117,7 +117,7 @@ function BossHunt.waitForArrival()
     print("等待到达Boss位置...")
     
     -- 最大等待时间（毫秒）
-    local maxWaitTime = 30 * 1000  -- 最多等待60秒
+    local maxWaitTime = 180 * 1000  -- 最多等待180秒
     local startTime = os.time() * 1000
     
     -- 循环检测是否仍在寻路
