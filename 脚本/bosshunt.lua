@@ -69,12 +69,6 @@ function BossHunt.findBoss()
     -- 关闭小地图
     BossHunt.closeMiniMap()
     
-    if foundBoss then
-        print("成功找到Boss!")
-    else
-        print("两轮查找均未找到Boss")
-    end
-    
     return foundBoss
 end
 

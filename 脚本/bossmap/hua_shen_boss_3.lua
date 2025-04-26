@@ -24,7 +24,19 @@ function HuaShenBoss3:enter()
     
     -- 点击化身
     tap(1368, 458)
-    sleep(2000)
+    sleep(1000)
+    
+    -- 检查是否挑战了3次
+    setDict(0,"1.txt")
+    useDict(0)
+    local ret,x,y = findStr(514, 160, 1316, 780, "3-3","00FF00|00FF00", 0.90)
+    if x >=0 and y >= 0 then
+        print("已挑战3次，跳过此地图")
+        -- 点击关闭按钮
+        tap(1324, 125)
+        sleep(1000)
+        return false
+    end
     
     -- 点击三层
     tap(403, 748)
