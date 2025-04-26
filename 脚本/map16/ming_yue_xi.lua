@@ -15,6 +15,13 @@ end
 
 function MingYueXi:enter()
     print("开始进入冥月西教...")
+    -- 点击大陆直飞
+    tap(1377, 322)
+    sleep(1000)
+
+    -- 点击十六大陆
+    tap(732, 585)
+    sleep(1000)
     
     -- 点击冥月西教
     tap(706, 261)

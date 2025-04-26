@@ -15,6 +15,13 @@ end
 
 function HeiMo:enter()
     print("开始进入黑魔门...")
+    -- 点击大陆直飞
+    tap(1377, 322)
+    sleep(1000)
+
+    -- 点击十六大陆
+    tap(732, 585)
+    sleep(1000)
     
     -- 点击黑魔门
     tap(415, 445)

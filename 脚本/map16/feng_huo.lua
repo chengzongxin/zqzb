@@ -15,6 +15,13 @@ end
 
 function FengHuo:enter()
     print("开始进入风火门...")
+    -- 点击大陆直飞
+    tap(1377, 322)
+    sleep(1000)
+
+    -- 点击十六大陆
+    tap(732, 585)
+    sleep(1000)
     
     -- 点击风火门
     tap(521, 392)
@@ -22,7 +29,7 @@ function FengHuo:enter()
     
     -- 点击进入
     tap(456, 313)
-    sleep(2000)
+    sleep(1000)
     
     return true
 end
