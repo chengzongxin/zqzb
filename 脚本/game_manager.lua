@@ -15,7 +15,7 @@ local HuaShenBoss3 = require("bossmap/hua_shen_boss_3")
 -- specialmap
 local FengDu = require("specialmap/feng_du")
 local DouLuo = require("specialmap/dou_luo")
-
+local YuJie1 = require("specialmap/yu_jie_1")
 -- map16
 local HeiMo = require("map16/hei_mo")
 local FengHuo = require("map16/feng_huo")
@@ -37,6 +37,7 @@ function GameManager:new()
             HuaShenBoss3:new(),    -- 化身跨服BOSS三层
             FengDu:new(),          -- 酆都鬼蜮
             DouLuo:new(),          -- 斗罗大世界
+            YuJie1:new(),          -- 欲界一层
             HeiMo:new(),           -- 黑魔门
             FengHuo:new(),         -- 风火门
             MingYueDong:new(),     -- 冥月东教

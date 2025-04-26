@@ -89,16 +89,8 @@ function Map:fightInMap()
     
     -- 尝试寻找并击杀Boss
     local bossHunted = false
-    -- if Config.BOSS_HUNT_ENABLED then
-        print("尝试寻找Boss...")
-        bossHunted = BossHunt.huntBoss()
-        
-        -- 如果只打Boss模式且已击杀Boss，则直接返回
-        -- if bossHunted and Config.ONLY_BOSS_MODE then
-            -- print("已击杀Boss，根据设置将直接切换地图")
-            -- return
-        -- end
-    -- end
+    print("尝试寻找Boss...")
+    bossHunted = BossHunt.huntBoss()
     
     -- 如果没有找到Boss或者Boss已经击杀完成且不是只打Boss模式，则继续常规打怪
     print("执行常规打怪...")
@@ -138,6 +130,14 @@ function Map:fightInMap()
                 return
             end
         end
+    end
+    
+    -- 在即将切换到下一个地图时，再次检查当前地图是否有BOSS
+    print("即将切换地图，再次检查当前地图是否有BOSS...")
+    if BossHunt.huntBoss() then
+        print("发现新的BOSS，将在当前地图继续挂机一轮")
+        -- 递归调用自身，继续在当前地图挂机
+        return self:fightInMap()
     end
     
     print(self.name .. " 打怪完成")

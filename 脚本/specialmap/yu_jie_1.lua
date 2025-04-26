@@ -1,20 +1,20 @@
 local Map = require("map")
 
-local DouLuo = {}
-setmetatable(DouLuo, {__index = Map})
+local YuJie1 = {}
+setmetatable(YuJie1, {__index = Map})
 
-function DouLuo:new()
+function YuJie1:new()
     local o = Map:new({
-        name = "斗罗大世界",
+        name = "欲界一层",
         fightTime = 10 * 60 * 1000,  -- 10分钟
         priority = 70
     })
-    setmetatable(o, {__index = DouLuo})
+    setmetatable(o, {__index = YuJie1})
     return o
 end
 
-function DouLuo:enter()
-    print("开始进入斗罗大世界...")
+function YuJie1:enter()
+    print("开始进入欲界一层...")
     
     -- 点击变强攻略
     tap(1300, 54)
@@ -32,31 +32,31 @@ function DouLuo:enter()
     swipe(1053, 731, 1056, 410, 200)
     sleep(800)
     
-    -- 点击斗罗大世界
-    tap(1182, 570)
+    -- 点击欲界六重天
+    tap(1193, 736)
     sleep(1000)
     
     -- 点击进入
-    tap(461, 305)
+    tap(1163, 732)
     sleep(2000)
     
     return true
 end
 
-function DouLuo:startFighting()
+function YuJie1:startFighting()
     print("开始在地图 " .. self.name .. " 打怪，持续 " .. (self.fightTime/1000/60) .. " 分钟")
     tap(1467, 415)  -- 自动战斗按钮
     sleep(1000)
     return true
 end
 
-function DouLuo:fightInMap()
+function YuJie1:fightInMap()
     -- 调用父类的fightInMap方法
     return Map.fightInMap(self)
 end
 
-function DouLuo:leave()
+function YuJie1:leave()
     return true
 end
 
-return DouLuo 
+return YuJie1
