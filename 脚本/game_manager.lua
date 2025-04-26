@@ -114,8 +114,8 @@ function GameManager:run()
         -- 获取当前地图
         local map = self:getNextValidMap()
         if not map then
-            print("没有可用的地图，等待10秒后重试")
-            sleep(10000)
+            print("没有可用的地图，等待1秒后重试")
+            sleep(1000)
             goto continue
         end
         
