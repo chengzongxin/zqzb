@@ -73,7 +73,7 @@ end
 -- 开始战斗
 function Map:startFighting()
     print("开始战斗...")
-    tap(1467, 415)  -- 自动战斗按钮
+    -- tap(1467, 415)  -- 自动战斗按钮
     sleep(1000)
 end
 
@@ -104,9 +104,9 @@ function Map:fightInMap()
     print("执行常规打怪...")
     
     -- 如果需要点击自动战斗按钮
-    if Config.AUTO_ATTACK then
-        self:startFighting()
-    end
+    --if Config.AUTO_ATTACK then
+    --    self:startFighting()
+    --end
     
     -- 计算剩余打怪时间
     local remainingTime = self.fightTime
