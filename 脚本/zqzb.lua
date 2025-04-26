@@ -20,8 +20,8 @@ function onUIEvent(handle , event , arg1 , arg2 , arg3)
 	end
 end
 
-local ret = showUI("zqzb.ui",-1,-1,onUIEvent)
--- local ret = getUIConfig("main.config")
+-- local ret = showUI("zqzb.ui",-1,-1,onUIEvent)
+local ret = getUIConfig("main.config")
 
 print(ret)
 

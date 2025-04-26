@@ -21,7 +21,7 @@ Config = {
     -- 地图数据
     maps = {
         -- 特殊BOSS地图放在最前面
-        {name="异火二层", type="special_boss", fightTime=10*60*1000, -- 10分钟
+        {name="异火二层", type="special_boss", fightTime=15*60*1000, -- 10分钟
             enterSteps={
                 {action="tap", x=1088, y=85},   -- 点击福利boss
                 {action="tap", x=1365, y=336},  -- 点击异火
