@@ -6,16 +6,21 @@ local BossHunt = require("bosshunt")
 local RedPacket = require("redpacket")
 
 -- 导入所有地图类
-local YiHuo1 = require("maps/yihuo_level1")
-local HuaShenBoss1 = require("maps/hua_shen_boss_1")
-local HuaShenBoss2 = require("maps/hua_shen_boss_2")
-local HuaShenBoss3 = require("maps/hua_shen_boss_3")
-local FengDu = require("maps/feng_du")
-local DouLuo = require("maps/dou_luo")
-local HeiMo = require("maps/hei_mo")
-local FengHuo = require("maps/feng_huo")
-local MingYueDong = require("maps/ming_yue_dong")
-local MingYueXi = require("maps/ming_yue_xi")
+-- bossmap
+local YiHuo1 = require("bossmap/yihuo_level1")
+local HuaShenBoss1 = require("bossmap/hua_shen_boss_1")
+local HuaShenBoss2 = require("bossmap/hua_shen_boss_2")
+local HuaShenBoss3 = require("bossmap/hua_shen_boss_3")
+
+-- specialmap
+local FengDu = require("specialmap/feng_du")
+local DouLuo = require("specialmap/dou_luo")
+
+-- map16
+local HeiMo = require("map16/hei_mo")
+local FengHuo = require("map16/feng_huo")
+local MingYueDong = require("map16/ming_yue_dong")
+local MingYueXi = require("map16/ming_yue_xi")
 
 local GameManager = {}
 
