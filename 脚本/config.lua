@@ -8,6 +8,9 @@ Config = {
     PLAYER_DETECTION_ENABLED = true,  -- 是否启用玩家检测功能
     PLAYER_DETECTION_REGION = {49, 138, 346, 411},  -- 玩家检测区域
     PLAYER_DETECTION_INTERVAL = 5 * 1000,  -- 玩家检测间隔（毫秒）
+    BOSS_FIGHT_TIME = 3 * 60 * 1000,  -- BOSS战斗时间，默认3分钟
+    BOSS_HUNT_ENABLED = true,  -- 是否启用BOSS狩猎功能
+    ONLY_BOSS_MODE = false,  -- 是否只打BOSS模式
     
     -- 红包相关配置
     COLLECT_REDPACKET_INTERVAL = 10 * 60 * 1000, -- 领红包间隔，默认10分钟

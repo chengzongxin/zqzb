@@ -174,7 +174,7 @@ function BossHunt.huntBoss()
     BossHunt.startAutoFight()
     
     -- 使用分段等待的方式，方便检测玩家
-    local bossFightTime = Config.BOSS_FIGHT_TIME
+    local bossFightTime = Config.BOSS_FIGHT_TIME or (3 * 60 * 1000)  -- 默认3分钟
     local startTime = os.time() * 1000
     local endTime = startTime + bossFightTime
     local checkInterval = Config.PLAYER_DETECTION_INTERVAL
