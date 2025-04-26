@@ -103,16 +103,71 @@ function GameManager:updateConfig(newConfig)
     end
 end
 
+-- 检测并关闭任何弹窗（简化版）
+function GameManager:checkAndClosePopup()
+    print("检测是否有弹窗...")
+    local ret, x, y = findPic(0, 0, 0, 0, "关闭.png", "101010", 0, 0.7)
+    print("弹窗检测结果:", ret, x, y)
+    
+    if ret ~= -1 then
+        print("检测到弹窗，位置: x=" .. x .. ", y=" .. y)
+        
+        -- 点击关闭按钮
+        tap(x, y)
+        print("已点击关闭按钮")
+        sleep(500) -- 给关闭动画一些时间
+        return true
+    else
+        print("未检测到弹窗")
+        return false
+    end
+end
+
+-- 检查当前地图是否有BOSS
+function GameManager:checkBoss()
+    local currentMap = self.maps[self.currentMapIndex]
+    print("检查当前地图 " .. currentMap.name .. " 是否有BOSS...")
+    
+    -- 打开小地图
+    if not BossHunt.isOpenMiniMap() then
+        print("无法打开小地图，放弃BOSS检查")
+        return false
+    end
+    
+    -- 寻找BOSS
+    local foundBoss = BossHunt.findBoss()
+    
+    -- 关闭小地图
+    BossHunt.closeMiniMap()
+    
+    if foundBoss then
+        print("当前地图发现BOSS，将继续在当前地图执行一轮挂机")
+        -- 等待到达BOSS位置
+        if BossHunt.waitForArrival() then
+            -- 开始自动战斗
+            BossHunt.startAutoFight()
+            -- 执行一轮挂机
+            currentMap:fightInMap()
+            return true
+        end
+    end
+    
+    return false
+end
+
 -- 进入下一个地图
 function GameManager:nextMap()
+    -- 在切换地图前检查当前地图是否有BOSS
+    if self:checkBoss() then
+        print("当前地图有BOSS，已执行一轮挂机")
+        return  -- 不切换地图，继续在当前地图执行
+    end
+    
     self.currentMapIndex = self.currentMapIndex + 1
     if self.currentMapIndex > #self.maps then
         self.currentMapIndex = 1
     end
     print("切换到下一个地图: " .. self.maps[self.currentMapIndex].name)
-    
-    -- 在切换地图时检查红包
-    self:checkRedPacket()
 end
 
 -- 运行游戏
@@ -140,11 +195,17 @@ function GameManager:run()
         
         -- 3. 开始打怪
         currentMap:fightInMap()
+
+        -- 检查并关闭弹窗
+        self:checkAndClosePopup()
+
+        -- 在切换地图时检查红包
+        self:checkRedPacket()
         
         -- 4. 进入下一个地图
         self:nextMap()
         sleep(1000)
-        
+
         ::continue::
     end
 end
