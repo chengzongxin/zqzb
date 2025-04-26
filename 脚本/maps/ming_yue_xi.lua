@@ -5,39 +5,23 @@ setmetatable(MingYueXi, {__index = Map})
 
 function MingYueXi:new()
     local o = Map:new({
-        name = "明月溪",
-        fightTime = 10 * 60 * 1000,  -- 10分钟
-        priority = 70
+        name = "冥月西教",
+        fightTime = 3 * 60 * 1000,  -- 3分钟
+        priority = 30
     })
     setmetatable(o, {__index = MingYueXi})
     return o
 end
 
-function MingYueXi:enterFunction()
-    print("开始进入明月溪...")
+function MingYueXi:enter()
+    print("开始进入冥月西教...")
     
-    -- 点击大陆直飞
-    tap(1300, 54)
-    sleep(1000)
-    
-    -- 点击十六大陆
-    tap(672, 204)
-    sleep(1000)
-    
-    -- 滑动屏幕
-    swipe(1053, 731, 1056, 410, 200)
-    sleep(800)
-    swipe(1053, 731, 1056, 410, 200)
-    sleep(800)
-    swipe(1053, 731, 1056, 410, 200)
-    sleep(800)
-    
-    -- 点击明月溪
-    tap(1182, 570)
+    -- 点击冥月西教
+    tap(706, 261)
     sleep(1000)
     
     -- 点击进入
-    tap(461, 305)
+    tap(456, 313)
     sleep(2000)
     
     return true
@@ -48,6 +32,11 @@ function MingYueXi:startFighting()
     tap(1467, 415)  -- 自动战斗按钮
     sleep(1000)
     return true
+end
+
+function MingYueXi:fightInMap()
+    -- 调用父类的fightInMap方法
+    return Map.fightInMap(self)
 end
 
 function MingYueXi:leave()

@@ -1,28 +1,32 @@
 local Map = require("map")
 
-local YiHuo = {}
-setmetatable(YiHuo, {__index = Map})
+local YiHuo1 = {}
+setmetatable(YiHuo1, {__index = Map})
 
-function YiHuo:new()
+function YiHuo1:new()
     local o = Map:new({
         name = "异火一层",
         fightTime = 15 * 60 * 1000,  -- 15分钟
         priority = 100
     })
-    setmetatable(o, {__index = YiHuo})
+    setmetatable(o, {__index = YiHuo1})
     return o
 end
 
-function YiHuo:enterFunction()
+function YiHuo1:enter()
     print("开始进入异火一层...")
     
+    -- 点击福利boss
+    tap(1088, 85)
+    sleep(1000)
+
     -- 点击异火
+    tap(1365, 336)
+    sleep(1000)
+
+    -- 点击异火一层
     tap(376, 375)
     sleep(1000)
-    
-    -- 点击进入
-    tap(456, 313)
-    sleep(2000)
     
     -- 检查BOSS是否刷新
     setDict(0, "1.txt")
@@ -36,7 +40,7 @@ function YiHuo:enterFunction()
         sleep(3000)  -- 等待进入地图
         return true
     else
-        print("BOSS未刷新")
+        print("BOSS未刷新，跳过此地图")
         -- 点击关闭按钮
         tap(1324, 125)
         sleep(1000)
@@ -44,15 +48,20 @@ function YiHuo:enterFunction()
     end
 end
 
-function YiHuo:startFighting()
+function YiHuo1:startFighting()
     print("开始在地图 " .. self.name .. " 打怪，持续 " .. (self.fightTime/1000/60) .. " 分钟")
     tap(1467, 415)  -- 自动战斗按钮
     sleep(1000)
     return true
 end
 
-function YiHuo:leave()
+function YiHuo1:fightInMap()
+    -- 调用父类的fightInMap方法
+    return Map.fightInMap(self)
+end
+
+function YiHuo1:leave()
     return true
 end
 
-return YiHuo 
+return YiHuo1 

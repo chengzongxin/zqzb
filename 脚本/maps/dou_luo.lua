@@ -13,7 +13,7 @@ function DouLuo:new()
     return o
 end
 
-function DouLuo:enterFunction()
+function DouLuo:enter()
     print("开始进入斗罗大世界...")
     
     -- 点击大陆直飞
@@ -48,6 +48,11 @@ function DouLuo:startFighting()
     tap(1467, 415)  -- 自动战斗按钮
     sleep(1000)
     return true
+end
+
+function DouLuo:fightInMap()
+    -- 调用父类的fightInMap方法
+    return Map.fightInMap(self)
 end
 
 function DouLuo:leave()

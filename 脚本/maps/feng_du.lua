@@ -9,13 +9,13 @@ function FengDu:new()
         fightTime = 10 * 60 * 1000,  -- 10分钟
         priority = 80,
         timeRestricted = true,
-        validTimeRange = {18, 6}  -- 18:00-06:00
+        validTimeRange = {18, 24, 0, 6}  -- 18:00-24:00 和 00:00-06:00
     })
     setmetatable(o, {__index = FengDu})
     return o
 end
 
-function FengDu:enterFunction()
+function FengDu:enter()
     print("开始进入酆都鬼蜮...")
     
     -- 点击大陆直飞
@@ -50,6 +50,11 @@ function FengDu:startFighting()
     tap(1467, 415)  -- 自动战斗按钮
     sleep(1000)
     return true
+end
+
+function FengDu:fightInMap()
+    -- 调用父类的fightInMap方法
+    return Map.fightInMap(self)
 end
 
 function FengDu:leave()

@@ -13,16 +13,8 @@ function FengHuo:new()
     return o
 end
 
-function FengHuo:enterFunction()
+function FengHuo:enter()
     print("开始进入风火门...")
-    
-    -- 点击大陆直飞
-    tap(1377, 322)
-    sleep(1000)
-    
-    -- 点击十六大陆
-    tap(732, 585)
-    sleep(1000)
     
     -- 点击风火门
     tap(521, 392)
@@ -40,6 +32,11 @@ function FengHuo:startFighting()
     tap(1467, 415)  -- 自动战斗按钮
     sleep(1000)
     return true
+end
+
+function FengHuo:fightInMap()
+    -- 调用父类的fightInMap方法
+    return Map.fightInMap(self)
 end
 
 function FengHuo:leave()

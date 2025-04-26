@@ -15,23 +15,19 @@ function HuaShenBoss2:new()
     return o
 end
 
-function HuaShenBoss2:enterFunction()
+function HuaShenBoss2:enter()
     print("开始进入化身跨服BOSS二层...")
     
     -- 点击福利BOSS
-    tap(1300, 54)
+    tap(1082, 89)
     sleep(1000)
     
     -- 点击化身
-    tap(672, 204)
-    sleep(1000)
-    
-    -- 点击一层
-    tap(377, 755)
-    sleep(1000)
+    tap(1368, 458)
+    sleep(2000)
     
     -- 点击二层
-    tap(377, 755)
+    tap(386, 688)
     sleep(1000)
     
     -- 检查BOSS是否刷新
@@ -46,7 +42,7 @@ function HuaShenBoss2:enterFunction()
         sleep(3000)  -- 等待进入地图
         return true
     else
-        print("BOSS未刷新")
+        print("BOSS未刷新，跳过此地图")
         -- 点击关闭按钮
         tap(1324, 125)
         sleep(1000)
@@ -61,8 +57,12 @@ function HuaShenBoss2:startFighting()
     return true
 end
 
+function HuaShenBoss2:fightInMap()
+    -- 调用父类的fightInMap方法
+    return Map.fightInMap(self)
+end
+
 function HuaShenBoss2:leave()
-    -- 化身跨服BOSS不需要特殊离开逻辑
     return true
 end
 

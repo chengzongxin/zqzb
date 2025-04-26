@@ -7,38 +7,58 @@ local Map = {}
 
 -- 构造函数
 function Map:new(o)
-    o = o or {}
+    o = o or {
+        enabled = true,
+        timeRestricted = false,
+        validTimeRange = {0, 24},
+        entryLimit = nil,
+        entryCount = 0
+    }
     setmetatable(o, {__index = Map})
     return o
 end
 
 -- 检查是否可以进入地图
 function Map:canEnter()
-    -- 检查是否启用
+    -- 如果地图未启用，直接返回false
     if not self.enabled then
-        return false, "地图未启用"
+        return false
     end
     
     -- 检查时间限制
-    if self.timeRestricted then
+    if self.timeRestricted and self.validTimeRange then
         local hour = tonumber(os.date("%H"))
-        local validStart, validEnd = self.validTimeRange[1], self.validTimeRange[2]
+        local canEnter = false
         
-        -- 处理跨天的情况（如18:00-06:00）
-        if validStart > validEnd then
-            if hour < validStart and hour >= validEnd then
-                return false, "不在开放时间内"
+        -- 遍历所有时间段
+        for i = 1, #self.validTimeRange, 2 do
+            local startHour = self.validTimeRange[i]
+            local endHour = self.validTimeRange[i + 1]
+            
+            -- 处理跨天的情况（如18:00-06:00）
+            if startHour > endHour then
+                if hour >= startHour or hour < endHour then
+                    canEnter = true
+                    break
+                end
+            else
+                if hour >= startHour and hour < endHour then
+                    canEnter = true
+                    break
+                end
             end
-        else
-            if hour < validStart or hour >= validEnd then
-                return false, "不在开放时间内"
-            end
+        end
+        
+        if not canEnter then
+            print("当前时间不在允许进入的时间段内")
+            return false
         end
     end
     
     -- 检查进入次数限制
-    if self.maxEntries and self.entryCount >= self.maxEntries then
-        return false, "已达到最大进入次数"
+    if self.entryLimit and self.entryCount >= self.entryLimit then
+        print("已达到今日进入次数限制")
+        return false
     end
     
     return true
@@ -47,30 +67,6 @@ end
 -- 进入地图
 function Map:enter()
     print("进入地图: " .. self.name)
-    
-    -- 执行进入步骤
-    for i, step in ipairs(self.enterSteps) do
-        if step.action == "tap" then
-            print("步骤 " .. i .. ": 点击坐标 (" .. step.x .. ", " .. step.y .. ")")
-            tap(step.x, step.y)
-            sleep(step.wait or 1000)
-        elseif step.action == "swipe" then
-            print("步骤 " .. i .. ": 滑动屏幕")
-            swipe(step.x1, step.y1, step.x2, step.y2, step.duration)
-            sleep(step.wait or 800)
-        elseif step.action == "check_boss" then
-            print("步骤 " .. i .. ": 检查BOSS是否刷新")
-            if self.checkBossRefresh and self:checkBossRefresh() then
-                return true
-            else
-                return false
-            end
-        end
-    end
-    
-    -- 额外等待加载时间
-    sleep(2000)
-    print("已完成 " .. self.name .. " 的进入步骤")
     return true
 end
 
@@ -93,15 +89,23 @@ function Map:fightInMap()
     
     -- 尝试寻找并击杀Boss
     local bossHunted = false
-    if Config.BOSS_HUNT_ENABLED then
+    -- if Config.BOSS_HUNT_ENABLED then
         print("尝试寻找Boss...")
         bossHunted = BossHunt.huntBoss()
         
         -- 如果只打Boss模式且已击杀Boss，则直接返回
-        if bossHunted and Config.BOSS_HUNT_ENABLED and Config.ONLY_BOSS_MODE then
-            print("已击杀Boss，根据设置将直接切换地图")
-            return
-        end
+        -- if bossHunted and Config.ONLY_BOSS_MODE then
+            -- print("已击杀Boss，根据设置将直接切换地图")
+            -- return
+        -- end
+    -- end
+    
+    -- 如果没有找到Boss或者Boss已经击杀完成且不是只打Boss模式，则继续常规打怪
+    print("执行常规打怪...")
+    
+    -- 如果需要点击自动战斗按钮
+    if Config.AUTO_ATTACK then
+        self:startFighting()
     end
     
     -- 计算剩余打怪时间
@@ -112,12 +116,7 @@ function Map:fightInMap()
         if remainingTime < 0 then remainingTime = 0 end
     end
     
-    -- 开始自动战斗
-    if Config.AUTO_ATTACK then
-        self:startFighting()
-    end
-    
-    -- 使用分段等待的方式，方便检测玩家和红包
+    -- 不再使用一次性sleep，而是分段sleep并检测玩家
     local startTime = os.time() * 1000
     local endTime = startTime + remainingTime
     local checkInterval = Config.PLAYER_DETECTION_INTERVAL
@@ -130,21 +129,18 @@ function Map:fightInMap()
         -- 短暂等待
         sleep(waitTime)
         
-        -- 检查玩家（通过全局监控类）
-        if Config.PLAYER_DETECTION_ENABLED and GlobalMonitor:checkPlayer() then
-            print("检测到玩家，终止打怪并回城")
-            GlobalMonitor:returnToCity()
-            return
-        end
-        
-        -- 检查红包
-        if (os.time() * 1000 - self.lastRedPacketTime) >= Config.COLLECT_REDPACKET_INTERVAL then
-            GlobalMonitor:checkRedPacket()
-            self.lastRedPacketTime = os.time() * 1000
+        -- 检测是否有玩家（如果启用了该功能）
+        if Config.PLAYER_DETECTION_ENABLED then
+            if GlobalMonitor:checkPlayer() then
+                -- 检测到玩家，执行回城操作
+                GlobalMonitor:returnToCity()
+                print("检测到玩家，已终止打怪并回城")
+                return
+            end
         end
     end
     
-    print("地图 " .. self.name .. " 挂机完成")
+    print(self.name .. " 打怪完成")
 end
 
 return Map 

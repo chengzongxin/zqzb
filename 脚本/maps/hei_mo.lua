@@ -13,16 +13,8 @@ function HeiMo:new()
     return o
 end
 
-function HeiMo:enterFunction()
+function HeiMo:enter()
     print("开始进入黑魔门...")
-    
-    -- 点击大陆直飞
-    tap(1377, 322)
-    sleep(1000)
-    
-    -- 点击十六大陆
-    tap(732, 585)
-    sleep(1000)
     
     -- 点击黑魔门
     tap(415, 445)
@@ -40,6 +32,11 @@ function HeiMo:startFighting()
     tap(1467, 415)  -- 自动战斗按钮
     sleep(1000)
     return true
+end
+
+function HeiMo:fightInMap()
+    -- 调用父类的fightInMap方法
+    return Map.fightInMap(self)
 end
 
 function HeiMo:leave()
