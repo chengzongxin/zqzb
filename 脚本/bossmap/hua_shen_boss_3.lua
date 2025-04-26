@@ -34,7 +34,7 @@ function HuaShenBoss3:enter()
     setDict(0, "1.txt")
     useDict(0)
     
-    local ret, x, y = findStr(514, 160, 1316, 780, "已刷新", "00FF00", 0.90)
+    local ret, x, y = findStr(514, 160, 1316, 780, "化身已刷新", "00FF00", 0.90)
     if x >= 0 and y >= 0 then
         print("BOSS已刷新，坐标: " .. x .. ", " .. y)
         -- 点击立即挑战
