@@ -123,46 +123,8 @@ function GameManager:checkAndClosePopup()
     end
 end
 
--- 检查当前地图是否有BOSS
-function GameManager:checkBoss()
-    local currentMap = self.maps[self.currentMapIndex]
-    print("检查当前地图 " .. currentMap.name .. " 是否有BOSS...")
-    
-    -- 打开小地图
-    if not BossHunt.isOpenMiniMap() then
-        print("无法打开小地图，放弃BOSS检查")
-        return false
-    end
-    
-    -- 寻找BOSS
-    local foundBoss = BossHunt.findBoss()
-    
-    -- 关闭小地图
-    BossHunt.closeMiniMap()
-    
-    if foundBoss then
-        print("当前地图发现BOSS，将继续在当前地图执行一轮挂机")
-        -- 等待到达BOSS位置
-        if BossHunt.waitForArrival() then
-            -- 开始自动战斗
-            BossHunt.startAutoFight()
-            -- 执行一轮挂机
-            currentMap:fightInMap()
-            return true
-        end
-    end
-    
-    return false
-end
-
 -- 进入下一个地图
 function GameManager:nextMap()
-    -- 在切换地图前检查当前地图是否有BOSS
-    if self:checkBoss() then
-        print("当前地图有BOSS，已执行一轮挂机")
-        return  -- 不切换地图，继续在当前地图执行
-    end
-    
     self.currentMapIndex = self.currentMapIndex + 1
     if self.currentMapIndex > #self.maps then
         self.currentMapIndex = 1
