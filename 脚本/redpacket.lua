@@ -13,10 +13,10 @@ function RedPacket.collect()
     -- 点击打怪送红包
     local coords = Config.coordinates.redPacket
     tap(coords.enterButton.x, coords.enterButton.y)
-    sleep(2000)
+    sleep(1000)
 	
     tap(coords.openTenTimes.x, coords.openTenTimes.y)
-    sleep(2000)  -- 等待动画完成
+    sleep(1000)  -- 等待动画完成
     
     -- 关闭红包窗口
     tap(coords.closeButton.x, coords.closeButton.y)
