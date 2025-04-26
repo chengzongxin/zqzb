@@ -12,7 +12,7 @@ end
 
 -- 检测区域内是否有玩家
 function GlobalMonitor:checkPlayer()
-    print("检测区域内是否有玩家...")
+    -- print("检测区域内是否有玩家...")
     
     local region = Config.PLAYER_DETECTION_REGION
     local x, y = -1, -1
