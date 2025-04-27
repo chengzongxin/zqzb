@@ -42,19 +42,15 @@ function YuJie1:enter()
 end
 
 function YuJie1:startFighting()
-    print("开始在地图 " .. self.name .. " 打怪，持续 " .. (self.fightTime/1000/60) .. " 分钟")
-    tap(1467, 415)  -- 自动战斗按钮
-    sleep(1000)
-    return true
+    return Map.startFighting(self)
 end
 
 function YuJie1:fightInMap()
-    -- 调用父类的fightInMap方法
     return Map.fightInMap(self)
 end
 
 function YuJie1:leave()
-    return true
+    return Map.leave(self)
 end
 
 return YuJie1

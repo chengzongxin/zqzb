@@ -8,6 +8,9 @@ local Map = {}
 -- 构造函数
 function Map:new(o)
     o = o or {
+        name = "",
+        fightTime = 0,
+        priority = 0,
         enabled = true,
         timeRestricted = false,
         validTimeRange = {0, 24},
@@ -72,7 +75,7 @@ end
 
 -- 开始战斗
 function Map:startFighting()
-    print("开始战斗...")
+    print("开始在地图 " .. self.name .. " 打怪，持续 " .. (self.fightTime/1000/60) .. " 分钟")
     -- tap(1467, 415)  -- 自动战斗按钮
     sleep(1000)
 end
