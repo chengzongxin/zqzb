@@ -1,7 +1,6 @@
 -- 游戏管理器类
 local Config = require("config")
 local GlobalMonitor = require("global_monitor")
-local Battle = require("battle")
 local BossHunt = require("bosshunt")
 local RedPacket = require("redpacket")
 

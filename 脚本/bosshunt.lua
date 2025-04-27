@@ -173,7 +173,7 @@ function BossHunt.huntBoss()
     local endTime = startTime + bossFightTime
     local checkInterval = Config.PLAYER_DETECTION_INTERVAL
     
-    local battle = require("battle") -- 导入battle模块用于调用检测玩家方法
+    local GlobalMonitor = require("global_monitor") -- 导入GlobalMonitor模块用于调用检测玩家方法
     
     while (os.time() * 1000) < endTime do
         -- 计算下一次检测前需要等待的时间
@@ -185,9 +185,9 @@ function BossHunt.huntBoss()
         
         -- 检测是否有玩家（如果启用了该功能）
         if Config.PLAYER_DETECTION_ENABLED then
-            if battle.checkForPlayers() then
+            if GlobalMonitor:checkPlayer() then
                 -- 检测到玩家，执行回城操作
-                battle.returnToCity()
+                GlobalMonitor:returnToCity()
                 print("Boss战斗中检测到玩家，已终止战斗并回城")
                 return true -- 仍然返回true因为已经找到并开始打Boss
             end

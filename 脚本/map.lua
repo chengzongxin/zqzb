@@ -2,6 +2,7 @@
 local Config = require("config")
 local GlobalMonitor = require("global_monitor")
 local BossHunt = require("bosshunt")
+local Battle = require("battle")
 
 local Map = {}
 
@@ -76,7 +77,7 @@ end
 -- 开始战斗
 function Map:startFighting()
     print("开始在地图 " .. self.name .. " 打怪，持续 " .. (self.fightTime/1000/60) .. " 分钟")
-    -- tap(1467, 415)  -- 自动战斗按钮
+    Battle:autoFight()
     sleep(1000)
 end
 
@@ -105,7 +106,7 @@ function Map:fightInMap()
     
     -- 计算剩余打怪时间
     local remainingTime = self.fightTime
-    if bossHunted then
+    if bossHunted then 
         -- 如果打过Boss，减去Boss战斗时间
         remainingTime = self.fightTime - Config.BOSS_FIGHT_TIME
         if remainingTime < 0 then remainingTime = 0 end
