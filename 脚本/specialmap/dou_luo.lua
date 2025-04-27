@@ -29,8 +29,6 @@ function DouLuo:enter()
     sleep(800)
     swipe(1053, 731, 1056, 410, 200)
     sleep(800)
-    swipe(1053, 731, 1056, 410, 200)
-    sleep(800)
     
     -- 点击斗罗大世界
     tap(1182, 570)

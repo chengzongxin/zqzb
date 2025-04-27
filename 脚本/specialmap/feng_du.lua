@@ -31,8 +31,6 @@ function FengDu:enter()
     sleep(800)
     swipe(1053, 731, 1056, 410, 200)
     sleep(800)
-    swipe(1053, 731, 1056, 410, 200)
-    sleep(800)
     
     -- 点击酆都鬼蜮
     tap(1202, 418)

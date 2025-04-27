@@ -5,7 +5,6 @@ toast("最强战兵启动", 0, 0, 12)
 -- 导入模块
 local Config = require("config")
 local GameManager = require("game_manager")
-local GlobalMonitor = require("global_monitor")
 
 -- 创建游戏管理器实例
 local gameManager = GameManager:new()

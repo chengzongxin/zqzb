@@ -29,8 +29,6 @@ function YuJie1:enter()
     sleep(800)
     swipe(1053, 731, 1056, 410, 200)
     sleep(800)
-    swipe(1053, 731, 1056, 410, 200)
-    sleep(800)
     
     -- 点击欲界六重天
     tap(1193, 736)

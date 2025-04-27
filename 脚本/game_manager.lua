@@ -35,8 +35,8 @@ function GameManager:new()
             HuaShenBoss1:new(),    -- 化身跨服BOSS一层
             HuaShenBoss2:new(),    -- 化身跨服BOSS二层
             HuaShenBoss3:new(),    -- 化身跨服BOSS三层
-            FengDu:new(),          -- 酆都鬼蜮
             DouLuo:new(),          -- 斗罗大世界
+            FengDu:new(),          -- 酆都鬼蜮
             YuJie1:new(),          -- 欲界一层
             HeiMo:new(),           -- 黑魔门
             FengHuo:new(),         -- 风火门
@@ -52,7 +52,27 @@ function GameManager:new()
         map.enabled = true
     end
     
+    -- 执行初始化
+    o:initialize()
+    
     return o
+end
+
+-- 初始化方法
+function GameManager:initialize()
+    print("开始初始化游戏管理器...")
+    
+    -- 1. 检查并切换到玩家列表模式
+    self:checkAndSwitchToPlayerListMode()
+    
+    -- 2. 检查并关闭任何弹窗
+    self:checkAndClosePopup()
+    
+    -- 3. 初始化其他配置
+    self.lastRedPacketTime = os.time() * 1000
+    self.lastPlayerCheckTime = os.time() * 1000
+    
+    print("游戏管理器初始化完成")
 end
 
 -- 检查红包
@@ -131,6 +151,33 @@ function GameManager:nextMap()
         self.currentMapIndex = 1
     end
     print("切换到下一个地图: " .. self.maps[self.currentMapIndex].name)
+end
+
+-- 检查并切换到玩家列表模式
+function GameManager:checkAndSwitchToPlayerListMode()
+    print("检查是否已切换到玩家列表模式...")
+    local region = {0, 140, 374, 407}
+    local index = -1
+    local ret = nil
+    index, ret = findPicFast(region[1], region[2], region[3], region[4], "人物.png", "000000", 0, 0.9)
+    print("检测结果:", index, ret)
+    
+    if index == -1 then
+        -- 未找到人物.png，说明不在玩家列表模式，需要切换
+        print("未处于玩家列表模式，正在切换...")
+        tap(27, 272)
+        sleep(1000) -- 等待切换完成
+        
+        -- 再次检查是否成功切换
+        index, ret = findPicFast(region[1], region[2], region[3], region[4], "人物.png", "000000", 0, 0.9)
+        if index ~= -1 then
+            print("成功切换到玩家列表模式")
+        else
+            print("警告：切换到玩家列表模式失败，可能影响脚本运行")
+        end
+    else
+        print("已处于玩家列表模式，无需切换")
+    end
 end
 
 -- 运行游戏
