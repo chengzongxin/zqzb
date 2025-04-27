@@ -50,7 +50,7 @@ function BossHunt.findBoss()
         
         -- 使用findPic函数查找Boss图标（支持多个图片模板）
         local x, y = -1, -1
-        local ret, x, y = findPic(502,223,1201,544,"boss2.bmp","111111",0,0.75)
+        local ret, x, y = findPic(366,139,1227,774,"boss2.bmp","222222",0,0.8)
         
         if x ~= -1 and y ~= -1 then
             print("找到Boss，坐标: " .. x .. ", " .. y)
