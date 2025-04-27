@@ -189,13 +189,13 @@ function BossHunt.huntBoss()
                 -- 检测到玩家，执行回城操作
                 GlobalMonitor:returnToCity()
                 print("Boss战斗中检测到玩家，已终止战斗并回城")
-                return true -- 仍然返回true因为已经找到并开始打Boss
+                return nil  -- 返回nil表示异常中断
             end
         end
     end
     
     print("Boss战斗完成")
-    return true
+    return true  -- 返回true表示成功完成Boss战斗
 end
 
 return BossHunt 

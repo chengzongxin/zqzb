@@ -94,7 +94,21 @@ function Map:fightInMap()
     -- 尝试寻找并击杀Boss
     local bossHunted = false
     print("尝试寻找Boss...")
-    bossHunted = BossHunt.huntBoss()
+    local huntResult = BossHunt.huntBoss()
+    
+    -- 处理BossHunt.huntBoss()的三种返回值
+    if huntResult == nil then
+        -- 异常中断（如检测到玩家回城），直接返回，让游戏管理器切换到下一个地图
+        print("Boss战斗异常中断，将切换到下一个地图")
+        return
+    elseif huntResult == true then
+        -- 成功完成Boss战斗
+        bossHunted = true
+        print("Boss战斗完成，继续常规打怪")
+    else
+        -- 未找到Boss或Boss战斗失败
+        print("未找到Boss或Boss战斗失败，继续常规打怪")
+    end
     
     -- 如果没有找到Boss或者Boss已经击杀完成且不是只打Boss模式，则继续常规打怪
     print("执行常规打怪...")
@@ -138,10 +152,14 @@ function Map:fightInMap()
     
     -- 在即将切换到下一个地图时，再次检查当前地图是否有BOSS
     print("即将切换地图，再次检查当前地图是否有BOSS...")
-    if BossHunt.huntBoss() then
+    huntResult = BossHunt.huntBoss()
+    if huntResult == true then
         print("发现新的BOSS，将在当前地图继续挂机一轮")
         -- 递归调用自身，继续在当前地图挂机
         return self:fightInMap()
+    elseif huntResult == nil then
+        print("Boss战斗异常中断，将切换到下一个地图")
+        return
     end
     
     print(self.name .. " 打怪完成")
