@@ -55,8 +55,9 @@ function BossHunt.findBoss()
         if x ~= -1 and y ~= -1 then
             print("找到Boss，坐标: " .. x .. ", " .. y)
             -- 点击Boss图标，前往Boss位置
-            tap(x, y)
-            sleep(1000)
+            sleep(500)
+			tap(x, y)
+            sleep(500)
             foundBoss = true
             break  -- 找到Boss后跳出循环
         else
