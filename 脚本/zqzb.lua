@@ -4,7 +4,7 @@ toast("最强战兵启动", 0, 0, 12)
 
 local ExchangeMoney = require("other/exchange_money")
 local exchangeMoney = ExchangeMoney:new()  -- 创建实例
--- exchangeMoney:start()  -- 调用实例方法
+--exchangeMoney:start()  -- 调用实例方法
 
 
 -- 导入模块
