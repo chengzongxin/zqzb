@@ -20,6 +20,7 @@ local HeiMo = require("map16/hei_mo")
 local FengHuo = require("map16/feng_huo")
 local MingYueDong = require("map16/ming_yue_dong")
 local MingYueXi = require("map16/ming_yue_xi")
+local QingLan = require("map16/qing_lan")  -- 新增：导入青兰圣地
 
 local GameManager = {}
 
@@ -40,7 +41,8 @@ function GameManager:new()
             HeiMo:new(),           -- 黑魔门
             FengHuo:new(),         -- 风火门
             MingYueDong:new(),     -- 冥月东教
-            MingYueXi:new()        -- 冥月西教
+            MingYueXi:new(),       -- 冥月西教
+            QingLan:new()          -- 青兰圣地
         },
         config = {}  -- 配置信息
     }
