@@ -6,10 +6,10 @@ setmetatable(HuaShenBoss3, {__index = Map})
 function HuaShenBoss3:new()
     local o = Map:new({
         name = "化身跨服BOSS三层",
-        fightTime = 10 * 60 * 1000,  -- 30分钟
+        fightTime = 15 * 60 * 1000,  -- 30分钟
         priority = 90,
         timeRestricted = true,
-        validTimeRange = {20, 22}  -- 16:00-20:00
+        validTimeRange = {18, 22}  -- 16:00-20:00
     })
     setmetatable(o, {__index = HuaShenBoss3})
     return o
