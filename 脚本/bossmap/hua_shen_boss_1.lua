@@ -9,7 +9,7 @@ function HuaShenBoss1:new()
         fightTime = 15 * 60 * 1000,  -- 30分钟
         priority = 90,
         timeRestricted = true,
-        validTimeRange = {22, 23}  -- 12:00-14:00
+        validTimeRange = {20, 23}  -- 12:00-14:00
     })
     setmetatable(o, {__index = HuaShenBoss1})
     return o
