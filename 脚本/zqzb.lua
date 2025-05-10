@@ -2,20 +2,21 @@
 print("最强战兵脚本启动")
 toast("最强战兵启动" , 0 , 0 , 12)
 
--- 导入坐标识别工具
-local CoordinateReader = require("coordinate_reader")
-local reader = CoordinateReader
+-- -- 导入坐标识别工具
+-- local CoordinateReader = require("coordinate_reader")
+-- local reader = CoordinateReader
 
--- 测试坐标识别
-while true do
-	local x, y = reader:getCurrentCoordinate()
-	if x and y then
-		print("当前坐标: X=" .. x .. ", Y=" .. y)
-	else
-		print("坐标识别失败")
-	end
-	sleep(1000)  -- 每秒识别一次
-end
+-- -- 导入寻路工具
+-- local PathFinder = require("path_finder")
+-- local pathFinder = PathFinder
+
+-- -- 测试寻路功能
+-- local targetX = 157  -- 目标X坐标
+-- local targetY = 58   -- 目标Y坐标
+
+-- print("开始寻路测试...")
+-- toast("开始寻路到: " .. targetX .. ":" .. targetY, 0, 0, 12)
+-- pathFinder:moveToTarget(targetX, targetY)
 
 -- 导入模块
 local Config = require("config")
