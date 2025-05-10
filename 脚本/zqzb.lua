@@ -1,11 +1,21 @@
 -- 最强战兵自动打怪脚本
 print("最强战兵脚本启动")
-toast("最强战兵启动", 0, 0, 12)
+toast("最强战兵启动" , 0 , 0 , 12)
 
-local ExchangeMoney = require("other/exchange_money")
-local exchangeMoney = ExchangeMoney:new()  -- 创建实例
---exchangeMoney:start()  -- 调用实例方法
+-- 导入坐标识别工具
+local CoordinateReader = require("coordinate_reader")
+local reader = CoordinateReader
 
+-- 测试坐标识别
+while true do
+	local x, y = reader:getCurrentCoordinate()
+	if x and y then
+		print("当前坐标: X=" .. x .. ", Y=" .. y)
+	else
+		print("坐标识别失败")
+	end
+	sleep(1000)  -- 每秒识别一次
+end
 
 -- 导入模块
 local Config = require("config")
