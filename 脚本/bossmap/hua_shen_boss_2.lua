@@ -9,7 +9,7 @@ function HuaShenBoss2:new()
         fightTime = 15 * 60 * 1000,  -- 30分钟
         priority = 90,
         timeRestricted = true,
-        validTimeRange = {20, 23}  -- 12:00-14:00
+        validTimeRange = {22, 23}  -- 12:00-14:00
     })
     setmetatable(o, {__index = HuaShenBoss2})
     return o
@@ -25,7 +25,7 @@ function HuaShenBoss2:enter()
     -- 点击化身
     tap(1368, 458)
     sleep(1000)
-    
+      
     -- 检查是否挑战了3次
     setDict(0,"1.txt")
     useDict(0)
