@@ -33,13 +33,12 @@ function GameManager:new()
         lastRedPacketTime = 0,
         lastPlayerCheckTime = 0,
         maps = {
-            XingDou:new(),         -- 斗罗大世界-星斗大森林
+            -- XingDou:new(),         -- 斗罗大世界-星斗大森林
             YiHuo1:new(),           -- 异火一层
             HuaShenBoss3:new(),    -- 化身跨服BOSS三层
             HuaShenBoss2:new(),    -- 化身跨服BOSS二层
             HuaShenBoss1:new(),    -- 化身跨服BOSS一层
             DouLuo:new(),          -- 斗罗大世界
-            
             FengDu:new(),          -- 酆都鬼蜮
             YuJie1:new(),          -- 欲界一层
             HeiMo:new(),           -- 黑魔门
