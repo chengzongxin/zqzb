@@ -3,12 +3,12 @@ print("最强战兵脚本启动")
 toast("最强战兵启动" , 0 , 0 , 12)
 
 -- -- 导入坐标识别工具
--- local CoordinateReader = require("coordinate_reader")
--- local reader = CoordinateReader
+local CoordinateReader = require("coordinate_reader")
+local reader = CoordinateReader
 
 -- -- 导入寻路工具
--- local PathFinder = require("path_finder")
--- local pathFinder = PathFinder
+local PathFinder = require("path_finder")
+local pathFinder = PathFinder
 
 -- -- 测试寻路功能
 -- local targetX = 157  -- 目标X坐标
@@ -18,6 +18,16 @@ toast("最强战兵启动" , 0 , 0 , 12)
 -- toast("开始寻路到: " .. targetX .. ":" .. targetY, 0, 0, 12)
 -- pathFinder:moveToTarget(targetX, targetY)
 
+-- -- 开始寻路到目标位置
+-- print("开始寻路到星斗大森林...")
+-- local targetX = 157  -- 目标X坐标
+-- local targetY = 58   -- 目标Y坐标
+
+-- -- 直接使用 PathFinder 的 moveToTarget 方法
+-- if not PathFinder:moveToTarget(targetX, targetY) then
+-- 	print("寻路失败")
+-- 	return false
+-- end
 -- 导入模块
 local Config = require("config")
 local GameManager = require("game_manager")
