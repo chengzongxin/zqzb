@@ -11,13 +11,13 @@ end
 
 -- 识别单个数字
 function CoordinateReader:recognizeDigit(x, y)
-    print("尝试识别数字，位置: x=" .. x-2 .. ", y=" .. y .. " 范围: " .. x + 12 .. ", " .. y + 20)
+    print("尝试识别数字，位置: x=" .. x-1 .. ", y=" .. y .. " 范围: " .. x + 11 .. ", " .. y + 20)
     
     -- 逐个尝试识别每个数字
     local digits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
     for _, digit in ipairs(digits) do
-        local sim = digit == "4" and 0.80 or 0.70
-        local ret, _, _ = findStr(x-2, y, x + 12, y + 20, digit, "F9F8F7-080808", sim)
+        local sim = digit == "4" and 0.85 or 0.70
+        local ret, _, _ = findStr(x-1, y, x + 11, y + 20, digit, "F9F8F7-080808", sim)
         if ret ~= -1 then
             print("识别到数字: " .. digit)
             return digit

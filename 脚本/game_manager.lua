@@ -15,14 +15,16 @@ local HuaShenBoss3 = require("bossmap/hua_shen_boss_3")
 local FengDu = require("specialmap/feng_du")
 local DouLuo = require("specialmap/dou_luo")
 local YuJie1 = require("specialmap/yu_jie_1")
-local XingDou = require("specialmap/xing_dou")  -- 新增：导入星斗大森林
+local XingDou = require("specialmap/xing_dou")  -- 星斗大森林
+local LuoRi = require("specialmap/luo_ri")      -- 落日森林
+local JiBei = require("specialmap/ji_bei")      -- 新增：导入极北之地
 
 -- map16
 local HeiMo = require("map16/hei_mo")
 local FengHuo = require("map16/feng_huo")
 local MingYueDong = require("map16/ming_yue_dong")
 local MingYueXi = require("map16/ming_yue_xi")
-local QingLan = require("map16/qing_lan")  -- 新增：导入青兰圣地
+local QingLan = require("map16/qing_lan")
 
 local GameManager = {}
 
@@ -33,12 +35,14 @@ function GameManager:new()
         lastRedPacketTime = 0,
         lastPlayerCheckTime = 0,
         maps = {
+            DouLuo:new(),          -- 斗罗大世界
             XingDou:new(),         -- 斗罗大世界-星斗大森林
-            YiHuo1:new(),           -- 异火一层
+            LuoRi:new(),           -- 斗罗大世界-落日森林
+            JiBei:new(),           -- 斗罗大世界-极北之地
+            YiHuo1:new(),          -- 异火一层
             HuaShenBoss3:new(),    -- 化身跨服BOSS三层
             HuaShenBoss2:new(),    -- 化身跨服BOSS二层
             HuaShenBoss1:new(),    -- 化身跨服BOSS一层
-            DouLuo:new(),          -- 斗罗大世界
             FengDu:new(),          -- 酆都鬼蜮
             YuJie1:new(),          -- 欲界一层
             HeiMo:new(),           -- 黑魔门
